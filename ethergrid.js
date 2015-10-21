@@ -1,4 +1,4 @@
-Ethergrid = function (canvas, grid, options) {
+Ethergrid = function(canvas, grid, options) {
   var w = canvas.offsetWidth;
   var h = canvas.offsetHeight;
 
@@ -41,15 +41,15 @@ Ethergrid = function (canvas, grid, options) {
     }
 
     // find connections
-    _.each(points, function (p1) {
+    _.each(points, function(p1) {
       p1.connections = _.chain(points)
-        .filter(function (p2) { return p1 != p2 && getDistance(p1, p2) <= Math.pow(options.padding, 2) * 2; })
+        .filter(function(p2) { return p1 != p2 && getDistance(p1, p2) <= Math.pow(options.padding, 2) * 2; })
         .value();
     });
-    // _.each(points, function (point) {
+    // _.each(points, function(point) {
     //   point.connections = _.chain(points)
-    //     .sortBy(function (p2) { return point.idx != p2.idx ? getDistance(point, p2) : Infinity; })
-    //     .first(5)
+    //     .sortBy(function(p2) { return point.idx != p2.idx ? getDistance(point, p2) : Infinity; })
+    //     .first(2)
     //     .value();
     // });
   }
@@ -61,7 +61,7 @@ Ethergrid = function (canvas, grid, options) {
     var _active = true;
 
     // constructor
-    (function () {
+    (function() {
       _this.x = x;
       _this.y = y;
       _this.r = r;
@@ -71,7 +71,7 @@ Ethergrid = function (canvas, grid, options) {
     })();
 
     // methods
-    this.render = function () {
+    this.render = function() {
       var rgb = _.chain(options.color).pick('r', 'g', 'b').map(parseInt).value();
       var opacity = Number(options.color.a);
       
@@ -83,7 +83,7 @@ Ethergrid = function (canvas, grid, options) {
       ctx.arc(_this.x, _this.y, _this.r, 0, 2 * Math.PI);
       ctx.fill();
 
-      _.each(this.connections, function (toPoint) {
+      _.each(this.connections, function(toPoint) {
         if (toPoint != this) {
           ctx.beginPath();
           ctx.moveTo(_this.x, _this.y);
@@ -93,7 +93,7 @@ Ethergrid = function (canvas, grid, options) {
       });
     };
 
-    this.destroy = function () {
+    this.destroy = function() {
       _active = false;
     };
 
@@ -102,7 +102,7 @@ Ethergrid = function (canvas, grid, options) {
       TweenLite.to(_this, options.speed * (Math.random()+1), {
         x: _originX - options.entropy + options.entropy * 2 * Math.random(),
         y: _originY - options.entropy + options.entropy * 2 * Math.random(),
-        onComplete: function () {
+        onComplete: function() {
           if (_active) animate();
         }
       });
@@ -123,15 +123,15 @@ Ethergrid = function (canvas, grid, options) {
 
 
   // PUBLIC
-  this.speed   = function (v) { options.speed = v; };
-  this.entropy = function (v) { options.entropy = v; };
-  this.opacity = function (v) { options.color.a = v; };
-  this.color   = function (r, g, b, speed) {
+  this.speed   = function(v) { options.speed = v; };
+  this.entropy = function(v) { options.entropy = v; };
+  this.opacity = function(v) { options.color.a = v; };
+  this.color   = function(r, g, b, speed) {
     speed = speed || 1;
     TweenLite.to(options.color, speed, {r:r, g:g, b:b});
   };
 
-  this.colorHex = function (hex, speed) {
+  this.colorHex = function(hex, speed) {
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
     var g = (bigint >> 8) & 255;
@@ -139,7 +139,7 @@ Ethergrid = function (canvas, grid, options) {
     this.color(r, g, b, speed);
   };
 
-  this.grid = function (grid) {
+  this.grid = function(grid) {
     init(grid || []);
   };
 };

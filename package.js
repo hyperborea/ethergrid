@@ -1,6 +1,6 @@
 Package.describe({
   name: 'hyperborea:ethergrid',
-  version: '0.0.1',
+  version: '0.0.2',
   summary: 'Renders a connected grid that "swirls" depending on it\'s entropy',
   git: 'https://github.com/hyperborea/ethergrid.git',
   documentation: 'README.md'
